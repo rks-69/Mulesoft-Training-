@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="a730fe34-c2c9-4b3e-8757-5566ed7fc176" basePath="/rest" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="6f6a51b4-79db-4e6f-8b93-d08bd7d66ae4" basePath="/api" >
+		<http:request-connection protocol="HTTPS" host="reqres.in" port="443" />
+	</http:request-config>
+	<flow name="consume-rest-serviceFlow" doc:id="6d6c5bb8-26e4-4936-bff5-e5cd138813df" >
+		<http:listener doc:name="Listener" doc:id="00a20946-a3c4-4692-8d61-2482739c4813" config-ref="HTTP_Listener_config" path="/xml-consume" allowedMethods="POST"/>
+		<logger level="INFO" doc:name="Logger" doc:id="c75bf66f-a7ff-45c5-9a08-773e72f0fd33" message="#[payload]"/>
+		<ee:transform doc:name="Transform Message" doc:id="966bde52-787a-4749-8179-a548ae3bef4e" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	name: payload.emp.empName,
+	job: payload.emp.empJob
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<http:request method="POST" doc:name="Request" doc:id="4ce7b394-7204-4800-b17e-07ee6a060741" config-ref="HTTP_Request_configuration" path="/users"/>
+	</flow>
+	<flow name="consume-rest-serviceFlow1" doc:id="67c42bec-9175-4a9c-837b-aa6e91ccdad6" >
+		<http:listener doc:name="Listener" doc:id="60db7614-39cb-4512-95dc-01c2a522773e" config-ref="HTTP_Listener_config" path="/json-consume" allowedMethods="POST"/>
+		<logger level="INFO" doc:name="Logger" doc:id="22d5225f-e849-41db-8c57-e3a1d75af6fe" message="#[payload]"/>
+		<http:request method="POST" doc:name="Request" doc:id="6eb92208-406c-41b1-9117-afd719944028" config-ref="HTTP_Request_configuration" path="/users"/>
+	</flow>
+</mule>

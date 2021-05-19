@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<flow name="mule-attributes-eventFlow" doc:id="284960a7-8b1f-4bd3-8196-192c2cadb006" >
+		<http:listener doc:name="Listener" doc:id="13c39e48-b77b-437d-9ed2-57647b31a84b" config-ref="HTTP_Listener_config" path="/query-params" allowedMethods="GET"/>
+		<logger level="INFO" doc:name="Logger" doc:id="fb09108b-e600-4c77-851d-9cf88a14defd" message="#[attributes]"/>
+	</flow>
+	<flow name="mule-attributes-eventFlow1" doc:id="19fc6f9e-49a2-4300-bf79-8ce4369c66c2" >
+		<http:listener doc:name="Listener" doc:id="ea355026-2078-4015-8719-5bf8323a1809" config-ref="HTTP_Listener_config" path="/uri-params/{empID}/{empName}"/>
+		<logger level="INFO" doc:name="Logger" doc:id="91db0811-991a-45b8-87a3-0e9055985fe1" message="#[attributes]"/>
+	</flow>
+</mule>

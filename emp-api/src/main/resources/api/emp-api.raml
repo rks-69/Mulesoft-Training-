@@ -1,0 +1,134 @@
+#%RAML 1.0
+title: emp-api
+description: API for managing Employee CRUD operations
+baseUri: http://localhost:8081/emp
+/create-emp:
+  description: Used for creating new Employee
+  post:
+    body:
+      application/json:
+        example:
+          {
+            empID: 1,
+            empName: "Rishabh",
+            empAddress: "India",
+            empJob: "Integration Engineer"
+          }
+    responses:
+      200:
+        body:
+          application/json:
+            example:
+              {
+                status: 200,
+                message: "Employee Created"
+              }
+      500:
+        body:
+          application/json:
+            example:
+              {
+                status: 500,
+                message: "Internal Server Error"
+              }
+/fetch-employee:
+  description: To fetch employees using Employee ID
+  get:
+    queryParameters:
+      type: string
+    responses:
+      200:
+        body:
+          application/json:
+            example:
+              {
+                empID: 1,
+                empName: "Rishabh",
+                empAddress: "India",
+                empJob: "Integration Engineer"
+              }
+      404:
+        body:
+          application/json:
+            example:
+              {
+                status: 404,
+                message: "Employee Not found"
+              }
+      500:
+        body:
+          application/json:
+            example:
+              {
+                status: 500,
+                message: "Internal Server Error"
+              }
+/update-employee:
+  description: It will update the employee 
+  put:
+    queryParameters:
+      type: string
+    body:
+      application/json:
+        example:
+          {
+            empID: 1,
+            empName: "Rishabh",
+            empAddress: "India",
+            empJob: "Integration Engineer"
+          }
+    responses:
+      200:
+        body:
+          application/json:
+            example:
+              {
+                status: 200,
+                message: "Employee Details Updated"
+              }
+      404:
+        body:
+          application/json:
+            example:
+              {
+                status: 404,
+                message: "Employee Not Found"
+              }
+      500:
+        body:
+          application/json:
+            example:
+              {
+                status: 500,
+                message: "Internal Server Error"
+              }
+/delete-employee/{empID}:
+  description: To Delete employees
+  delete:
+    responses:
+      200:
+        body:
+          application/json:
+            example:
+              {
+                status: 200,
+                message: "Employee Deleted"
+              }
+      404:
+        body:
+          application/json:
+            example:
+              {
+                status: 404,
+                message: "Employee Not Found"
+              }
+      500:
+        body:
+          application/json:
+            example:
+              {
+                status: 500,
+                message: "Internal Server Error"
+              }
+    
+      

@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<types:mule xmlns:types="http://www.mulesoft.org/schema/mule/types">
+  <types:catalog>
+    <types:type name="RequestPayload" format="xml">
+      <types:example format="xml" element="emp" location="examples/reqres.xml"/>
+    </types:type>
+    <types:type name="ConsumePayload" format="json">
+      <types:shape format="weave" example="examples/reqres.json"><![CDATA[%dw 2.0
+
+type ConsumePayload = {|
+  name: String, 
+  job: String
+|} {"example": "{\\\"name\\\":\\\"morpheus\\\",\\\"job\\\":\\\"leader\\\"}"}
+
+]]></types:shape>
+    </types:type>
+  </types:catalog>
+  <types:enrichment select="#966bde52-787a-4749-8179-a548ae3bef4e">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="RequestPayload"/>
+        </types:message>
+      </types:input-event>
+      <types:output-event>
+        <types:message>
+          <types:payload type="ConsumePayload"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+</types:mule>

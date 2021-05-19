@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<flow name="consume-attributes-rest-serviceFlow" doc:id="c547b711-0b98-4b91-912f-b160b84f210b" >
+		<http:listener doc:name="Listener" doc:id="1e52a052-7a2f-4299-b17b-a30b7a4743b5" config-ref="HTTP_Listener_config" path="/query-params"/>
+		<logger level="INFO" doc:name="Logger" doc:id="dc8d2259-99bc-42ae-9909-97a81e6fb0db" message="#[attributes.queryParams.empID]"/>
+		<http:request method="GET" doc:name="Request" doc:id="cbf920a9-2ccc-4ef0-9bfe-69273da690f1" config-ref="HTTP_Request_configuration" path="/users/{employeeID}">
+			<http:uri-params ><![CDATA[#[{
+	employeeID: attributes.queryParams.empID
+}]]]></http:uri-params>
+		</http:request>
+	</flow>
+	<flow name="consume-attributes-rest-serviceFlow1" doc:id="e1186954-68d4-4b1c-99bd-af7d5fad27e5" >
+		<http:listener doc:name="Listener" doc:id="d318e808-0f12-4f43-bbb6-a4e1493686ff" config-ref="HTTP_Listener_config" path="/uri-params/{empID}"/>
+		<logger level="INFO" doc:name="Logger" doc:id="f5fdb919-b767-471c-806b-0c21fc30ce05" message="#[attributes.uriParams.empID]"/>
+		<http:request method="GET" doc:name="Request" doc:id="e1bae36a-c2f6-41de-a662-69c1e583020d" config-ref="HTTP_Request_configuration" path="/users/{employeeID}">
+			<http:uri-params ><![CDATA[#[{
+	employeeID: attributes.uriParams.empID
+}]]]></http:uri-params>
+		</http:request>
+	</flow>
+</mule>
