@@ -7,7 +7,6 @@
 	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
 
 	<flow name="get:\fetch-employee:emp-api-config">
-		<logger level="INFO" doc:name="Logger" doc:id="00ad82fe-e18f-479e-9792-6548ac7843aa" message='#["fetch employee started"]'/>
 		<ee:transform
 			xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
 			xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">

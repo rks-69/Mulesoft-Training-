@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:request-config name="HTTP_Request_configuration1" doc:name="HTTP Request configuration" doc:id="2d50c0ab-0548-4507-bd7c-0e8954d65e0c" basePath="/api" >
+		<http:request-connection host="employee-api-testing.us-e2.cloudhub.io" port="80" />
+	</http:request-config>
+	<flow name="consume-xml-serviceFlow" doc:id="47176fd5-7d3e-4a98-bc0d-f197b3d6a87b" >
+		<http:listener doc:name="Listener" doc:id="30c3d81b-c239-479e-8550-7935a2fb14a4" config-ref="HTTP_Listener_config" path="/xml-service" allowedMethods="PUT"/>
+		<logger level="INFO" doc:name="Logger" doc:id="0e39da7d-01fb-48b1-863f-07099ce95506" message="Flow Started"/>
+		<ee:transform doc:name="Transform Message" doc:id="4e6f359c-745a-405a-a768-0fb5ea3ad2e1" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/xml
+---
+{
+	emp: {
+		empID: payload.empID,
+		empName: payload.empName,
+		empAddress: payload.empAddress
+	}
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<http:request method="PUT" doc:name="Request" doc:id="74c1c35f-441e-4f82-a3be-7774f9a97d21" config-ref="HTTP_Request_configuration1" path="/update-employee">
+			<http:body ><![CDATA[payload]]></http:body>
+		</http:request>
+	</flow>
+</mule>

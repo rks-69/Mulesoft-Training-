@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="dataweave-map-filter-functionsFlow" doc:id="02fed5ce-541a-4fbb-8e00-2767150c848f" >
+		<ee:transform doc:name="Transform Message" doc:id="cdae04a5-1d02-4400-93e9-91348f433d8a" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+var empList = [{
+	"empID": 100,
+	"empName": "Zyan",
+	"empStatus": "A"
+},
+{
+	"empID": 101,
+	"empName": "Mallik",
+	"empStatus": "I"
+},
+{
+	"empID": 102,
+	"empName": "Dua",
+	"empStatus": "I"
+},
+{
+	"empID": 103,
+	"empName": "Lipa",
+	"empStatus": "A"
+}]
+---
+{
+	"mapExapmple": empList map (emp, indexOfEmp) ->{
+		"employeeID": emp.empID,
+		"empName": emp.empName,
+		"empSatus": emp.empStatus
+},
+	"mapExample2": empList map {
+		"employeeID": $.empID,
+		"empName": $.empName,
+	},
+	
+	"mapObjectExample": empList[0] mapObject (empValue, empKey, empIndex) -> {
+		(empKey): empValue
+	},
+	
+	"mapWithFilter": empList filter($.empStatus=="A") map (emp, indexOfEmo) -> 
+		{
+			"employeeID": emp.empID
+		},
+	
+	"mapWithFilterObject": empList[0] filterObject (($) == 100) mapObject (empValue, empKey, empIndex) ->{
+		(empKey): empValue
+	}
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>

@@ -35,7 +35,9 @@ baseUri: http://localhost:8081/emp
   description: To fetch employees using Employee ID
   get:
     queryParameters:
-      type: string
+      empID:
+        type: string
+        example: "1"
     responses:
       200:
         body:
@@ -46,14 +48,14 @@ baseUri: http://localhost:8081/emp
                 empName: "Rishabh",
                 empAddress: "India",
                 empJob: "Integration Engineer"
-              }
+              } 
       404:
         body:
           application/json:
             example:
               {
                 status: 404,
-                message: "Employee Not found"
+                message: "Resource Not Found"
               }
       500:
         body:
@@ -62,46 +64,47 @@ baseUri: http://localhost:8081/emp
               {
                 status: 500,
                 message: "Internal Server Error"
-              }
+              }         
 /update-employee:
   description: It will update the employee 
   put:
-    queryParameters:
-      type: string
     body:
-      application/json:
+      application/xml:
         example:
-          {
-            empID: 1,
-            empName: "Rishabh",
-            empAddress: "India",
-            empJob: "Integration Engineer"
-          }
+          <?xml version="1.0" encoding="UTF-8"?>
+                <emp>
+                  <empID>1</empID>
+                  <empName>Rishabh</empName>
+                  <empAddress>India</empAddress>
+                </emp> 
     responses:
       200:
         body:
-          application/json:
+          application/xml:
             example:
-              {
-                status: 200,
-                message: "Employee Details Updated"
-              }
+              <?xml version="1.0" encoding="UTF-8"?>
+              <response>
+                <status>200</status>
+                <message>Employee Updated</message>
+              </response>
       404:
         body:
           application/json:
             example:
-              {
-                status: 404,
-                message: "Employee Not Found"
-              }
+              <?xml version="1.0" encoding="UTF-8"?>
+              <response>
+                <status>400</status>
+                <message>Resource Not Found</message>
+              </response>
       500:
         body:
-          application/json:
+          application/xml:
             example:
-              {
-                status: 500,
-                message: "Internal Server Error"
-              }
+              <?xml version="1.0" encoding="UTF-8"?>
+              <response>
+                <status>500</status>
+                <message>Internal Server Error</message>
+              </response>
 /delete-employee/{empID}:
   description: To Delete employees
   delete:

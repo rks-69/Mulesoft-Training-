@@ -16,7 +16,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 	<flow name="consume-attributes-rest-serviceFlow1" doc:id="e1186954-68d4-4b1c-99bd-af7d5fad27e5" >
 		<http:listener doc:name="Listener" doc:id="d318e808-0f12-4f43-bbb6-a4e1493686ff" config-ref="HTTP_Listener_config" path="/uri-params/{empID}"/>
 		<logger level="INFO" doc:name="Logger" doc:id="f5fdb919-b767-471c-806b-0c21fc30ce05" message="#[attributes.uriParams.empID]"/>
-		<http:request method="GET" doc:name="Request" doc:id="e1bae36a-c2f6-41de-a662-69c1e583020d" config-ref="HTTP_Request_configuration" path="/users/{employeeID}">
+		<http:request method="GET" doc:name="Request" doc:id="e1bae36a-c2f6-41de-a662-69c1e583020d" config-ref="HTTP_Request_configuration" path="/users/{employeeID} ">
 			<http:uri-params ><![CDATA[#[{
 	employeeID: attributes.uriParams.empID
 }]]]></http:uri-params>

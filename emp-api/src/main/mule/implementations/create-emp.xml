@@ -7,7 +7,6 @@
 	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
 
 	<flow name="post:\create-emp:application\json:emp-api-config">
-		<logger level="INFO" doc:name="Logger" doc:id="153b830c-76c6-455b-be3e-947071232a0c" message='#["Employee creating started"]'/>
 		<ee:transform
 			xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
 			xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">

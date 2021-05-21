@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="dataweave-coercion-exampleFlow-XML-JSON" doc:id="d6694d0e-625f-4fc1-aa3b-9e133fb51bdc" >
+		<ee:transform doc:name="Transform Message" doc:id="17b645eb-2316-4a16-831a-3abb1c986d84" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	name: payload.emp.empName,
+	job: payload.emp.empJob
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="dataweave-coercion-exampleFlow-JSON-XML" doc:id="b4124af2-1fa2-41a5-8195-49665ffdef19">
+		<ee:transform doc:name="Transform Message" doc:id="eba65897-4e57-4b52-86cb-af9d5dc15ad2">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/xml
+---
+{
+	emp: {
+		empName: payload.name,
+		empJob: payload.job
+	}
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="dataweave-coercion-exampleFlow-XML-CSV" doc:id="97aaf9db-8070-4819-b681-7e9cc7e25e5e" >
+		<ee:transform doc:name="Transform Message" doc:id="bdc45db8-31bf-4fbc-82a6-757cfd3b101e" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/csv
+---
+{
+	empID: payload.emp.empID,
+	empName: payload.emp.empName,
+	empAddress: payload.emp.empAddress,
+	empJob: payload.emp.empJob
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="dataweave-coercion-exampleFlow-XML-XLSX" doc:id="eb3ea69a-7cd0-442a-898a-60986cc879f5" >
+		<ee:transform doc:name="Transform Message" doc:id="7a951241-7bb9-43e4-a90f-b6c74018c749" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/xlsx
+---
+{
+	empID: payload.emp.empID,
+	empName: payload.emp.empName,
+	empAddress: payload.emp.empAddress,
+	empJob: payload.emp.empJob
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="dataweave-coercion-exampleFlow-JSON-CSV" doc:id="60cb2be1-22a0-4b1b-a93e-a4f0de5ce56c" >
+		<ee:transform doc:name="Transform Message" doc:id="b3fb9d1f-9351-4d5c-9708-e907f8342d5a" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/csv
+---
+{
+	name: payload.name,
+	job: payload.job
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="dataweave-coercion-exampleFlow-JSON-XLSX" doc:id="5cd65681-4984-4cc1-bb35-f6487acd82be" >
+		<ee:transform doc:name="Transform Message" doc:id="a647c815-18e9-421e-883c-7f7151b3b6ff" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/xlsx
+---
+{
+	name: payload.name,
+	job: payload.job
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>

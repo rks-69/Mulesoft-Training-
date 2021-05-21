@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="c29d4d91-ee69-4730-b115-9838a2e12383" basePath="/mule" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="mule-flowsFlow" doc:id="36e983e1-8cc4-419b-8e0c-b9bb30cd6d40" >
+		<http:listener doc:name="Listener" doc:id="63f0f513-e508-45a2-a838-609ce8188aa0" config-ref="HTTP_Listener_config" path="/flows"/>
+		<logger level="INFO" doc:name="Logger" doc:id="58332cd7-9237-4192-abba-3bf126d39ce7" message="Main flow initialized"/>
+		<logger level="INFO" doc:name="Logger" doc:id="57e3f9eb-4c52-4c3e-8bb1-36197444e09b" message="Main flow started"/>
+		<set-variable value="" doc:name="Set Variable" doc:id="a2edfe63-a237-456f-9c0d-37137c292718" variableName="Main Set variable started"/>
+		<set-payload value="Main Set payload started" doc:name="Set Payload" doc:id="bef05760-6cd4-49a5-8300-d49e82054761" />
+		<flow-ref doc:name="Flow Reference" doc:id="a77db3c9-c2b4-48a5-90a3-608ab88fc6f6" name="mule-flowsSub_Flow"/>
+		<set-variable value="" doc:name="Set Variable" doc:id="50df6041-e53f-4566-a6c2-6d20f05eec95" variableName="Set variable after sub flow"/>
+		<set-payload value="Set payload after subflow" doc:name="Set Payload" doc:id="55a1a2bf-7dcb-47aa-8478-7493aa5e43c9" />
+		<logger level="INFO" doc:name="Logger" doc:id="d25766e8-12c8-4187-9a77-960830327e57" message="Ending mail flow"/>
+	</flow>
+	<sub-flow name="mule-flowsSub_Flow" doc:id="a183544f-4e21-4643-aa7c-e68598f88d5e" >
+		<logger level="INFO" doc:name="Logger" doc:id="5d0fd6ab-f4f7-4b7b-939c-f00cf834e47b" message="Sub flow initialized "/>
+		<logger level="INFO" doc:name="Logger" doc:id="5d76e19f-2df5-4d6b-b30a-9f7e39dc5f54" message="Main sub flow started "/>
+		<set-variable value="" doc:name="Set Variable" doc:id="88b44345-711f-4454-8a10-dcdd79dcee2b" variableName="Main Sub flow variable set"/>
+		<set-payload value="Main Sub Flow payload started" doc:name="Set Payload" doc:id="04fa5b53-0f08-4628-bc8d-919385aa3866" />
+		<logger level="INFO" doc:name="Logger" doc:id="c83f7bea-ec4f-4a39-91cc-609be37f6cb5" message="Ending subflow"/>
+	</sub-flow>
+</mule>

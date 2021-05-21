@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+	<flow name="dataweave-date-functions"
+		doc:id="8c92b5fd-6d78-4d9f-917e-e8e63a3bcd90">
+		<ee:transform doc:name="Transform Message"
+			doc:id="27fa636e-96b8-4e83-a221-6463933d2e9f">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+	now: now(),
+	isLeapYear1: isLeapYear(|2016-10-01T23:57:59|),
+	isLeapYear2: isLeapYear(|2017-10-01T23:57:59|),
+	days: daysBetween(|2016-10-01T23:57:59|,|2017-10-01T23:57:59|),
+	epochTime: now() as Number,
+	nanoseconds: now().nanoseconds,
+	miliseconds: now().milliseconds,
+	seconds: now().seconds,
+	minutes: now().minutes,
+	hour: now().hour,
+	day: now().day,
+	month: now().month,
+	year: now().year,
+	quater: now().quarter,
+	dayOfWeek: now().dayOfWeek,
+	dayOfYear: now().dayOfYear,
+	offsetSeconds: now().offsetSeconds
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="dataweave-core-functions" doc:id="d469871a-8ce0-4a6a-8b5f-62599944afd6" >
+		<ee:transform doc:name="Transform Message" doc:id="b958476a-9356-439e-ae30-04b86f14564f" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"abs-num1": abs(1.3),
+	"avg-num": avg([1, 1000]),
+	"ceil-num": ceil(1.6),
+	"floor-num": floor(6.9),
+	"round-num": round(5.5),
+	"min-num": min([50, 1000]),
+	"max-num": max([100, 69]),
+	"is-Even": isEven(6.9),
+	"is-Odd": isOdd(5.5),
+	"is-Integer": isInteger(4),
+	"is-deimal": isDecimal(6.9)
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="dataweave-core-String-functions" doc:id="88be3af9-3323-48b9-8bb4-a556ca17c3fe" >
+		<ee:transform doc:name="Transform Message" doc:id="c6c687c6-514e-4413-b394-fce4f3929fc2" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+
+var name= "Rishabh"
+---
+{
+	"contains": "Rishabh" contains  "abh",
+	"find": "Rishabh" find "a",
+	"isBlank": isBlank("Rishabh"),
+	"isEmpty": isEmpty(null),
+	"lower": lower("RISHABH"),
+	"upper": upper("rishabh"),
+	"replace": "admin123" replace "123" with("ID"),
+	"trim": trim("    Example of Trim       "),
+	"startsWith": "Rishabh" startsWith  "Ris",
+	"endsWith": "Rishabh" endsWith  "ris"
+	
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+
+
+</mule>

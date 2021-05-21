@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="dataweave-conditional-exampleFlow-If-Else" doc:id="11210ab3-c209-4dca-bbce-b1da47811cc3" >
+		<ee:transform doc:name="Transform Message" doc:id="45c765bb-c558-46e9-8a9a-1e82707726ed" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+
+var country = "USA"
+var city = null
+
+---
+{
+	currency: if(country=="USA") currency:"USA" else if(country=="India") "INR" else "",
+	city: if(city==null) "" else "Hyderabad"
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="dataweave-conditional-exampleFlow-If-Else-Ladder" doc:id="b5289b93-d70e-48dc-8613-17ee10dffb2a" >
+		<ee:transform doc:name="Transform Message" doc:id="a984c95b-ac88-407c-8c9d-3064921d60b9" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+
+var country = "India"
+var city = ""
+---
+{
+	exhange: if(country=="India") { currency: "INR" ,
+		city: "Bangalore"
+	}
+	else if(country=="USA") {currency: "USD", city: "Texas"}
+	else if(country=="UK") {currency: "Ponds", city: "London"}
+	else ""
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>

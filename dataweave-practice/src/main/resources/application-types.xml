@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<types:mule xmlns:types="http://www.mulesoft.org/schema/mule/types">
+  <types:catalog>
+    <types:type name="exampleXML" format="xml">
+      <types:example format="xml" element="emp" location="examples/reqres.xml"/>
+    </types:type>
+    <types:type name="exampleJSON" format="json">
+      <types:shape format="weave" example="examples/reqres.json"><![CDATA[%dw 2.0
+
+type exampleJSON = {|
+  name: String, 
+  job: String
+|} {"example": "{\\\"name\\\":\\\"morpheus\\\",\\\"job\\\":\\\"leader\\\"}"}
+
+]]></types:shape>
+    </types:type>
+  </types:catalog>
+  <types:enrichment select="#17b645eb-2316-4a16-831a-3abb1c986d84">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="exampleXML"/>
+        </types:message>
+      </types:input-event>
+      <types:output-event>
+        <types:message>
+          <types:payload type="exampleJSON"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#eba65897-4e57-4b52-86cb-af9d5dc15ad2">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="exampleJSON"/>
+        </types:message>
+      </types:input-event>
+      <types:output-event>
+        <types:message>
+          <types:payload type="exampleXML"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#bdc45db8-31bf-4fbc-82a6-757cfd3b101e">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="exampleXML"/>
+        </types:message>
+      </types:input-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#7a951241-7bb9-43e4-a90f-b6c74018c749">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="exampleXML"/>
+        </types:message>
+      </types:input-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#b3fb9d1f-9351-4d5c-9708-e907f8342d5a">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="exampleJSON"/>
+        </types:message>
+      </types:input-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#a647c815-18e9-421e-883c-7f7151b3b6ff">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="exampleJSON"/>
+        </types:message>
+      </types:input-event>
+    </types:processor-declaration>
+  </types:enrichment>
+</types:mule>

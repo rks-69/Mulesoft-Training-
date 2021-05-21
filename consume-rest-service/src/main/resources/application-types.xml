@@ -14,6 +14,23 @@ type ConsumePayload = {|
 
 ]]></types:shape>
     </types:type>
+    <types:type name="xmlrequest" format="xml">
+      <types:example format="xml" element="emp" location="examples/xmlrequest.xml"/>
+    </types:type>
+    <types:type name="xmlresponse" format="xml">
+      <types:example format="xml" element="emp" location="examples/xmlresponse.xml"/>
+    </types:type>
+    <types:type name="xml-consume" format="json">
+      <types:shape format="weave" example="examples/xml-consume.json"><![CDATA[%dw 2.0
+
+type xml_consume = {|
+  empID: Number {"typeId": "int"}, 
+  empName: String, 
+  empAddress: String
+|} {"example": "{\\\"empID\\\":1,\\\"empName\\\":\\\"Rishabh\\\",\\\"empAddress\\\":\\\"India\\\"}"}
+
+]]></types:shape>
+    </types:type>
   </types:catalog>
   <types:enrichment select="#966bde52-787a-4749-8179-a548ae3bef4e">
     <types:processor-declaration>
@@ -25,6 +42,20 @@ type ConsumePayload = {|
       <types:output-event>
         <types:message>
           <types:payload type="ConsumePayload"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#4e6f359c-745a-405a-a768-0fb5ea3ad2e1">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="xml-consume"/>
+        </types:message>
+      </types:input-event>
+      <types:output-event>
+        <types:message>
+          <types:payload type="xmlresponse"/>
         </types:message>
       </types:output-event>
     </types:processor-declaration>

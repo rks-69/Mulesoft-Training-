@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<flow name="mule-flows-asyncFlow" doc:id="aa388839-16a3-4c38-b713-cb0ba8650ce5" >
+		<http:listener doc:name="Listener" doc:id="5491d244-4a79-4fff-82ae-86b68e7807d1" config-ref="HTTP_Listener_config" path="/flows/async"/>
+		<logger level="INFO" doc:name="Logger" doc:id="63d62bac-358a-4322-be9d-43151dfa0e78" message="Main flow started"/>
+		<async doc:name="Async" doc:id="775a69e7-5065-4a5e-bb81-0393ad163fbf" >
+			<flow-ref doc:name="Flow Reference" doc:id="444f13c2-c260-4d8b-8843-30ca8194d18c" name="mule-subflow-async" />
+		</async>
+		<set-variable value="" doc:name="Set Variable" doc:id="2070f7b8-1432-45a0-ae79-91cacc145688" variableName="Main variable set"/>
+		<set-payload value="Main Payload started" doc:name="Set Payload" doc:id="d353646b-1cfe-4f21-a0f4-9af49db91228" />
+		<logger level="INFO" doc:name="Logger" doc:id="32791186-04ba-4af4-a443-f8a8cd926f57" message="Main flow ended"/>
+	</flow>
+	<sub-flow name="mule-subflow-async" doc:id="192f41bc-b625-4cd6-a448-ca006ca5f08a">
+		<logger level="INFO" doc:name="Logger" doc:id="c91cbd3b-a640-4c31-a119-c4ed9f1a5a8f" message="Main sub flow started"/>
+		<set-variable value="" doc:name="Set Variable" doc:id="7450795a-1e70-47d6-8b3e-975331286dfe" variableName="Main subflow variable set"/>
+		<set-payload value="Main payload subflow set" doc:name="Set Payload" doc:id="450ddae7-7198-491c-8752-f1e0debbe4d7" />
+		<logger level="INFO" doc:name="Logger" doc:id="98aab330-a877-4c4b-a035-a3f886cc9619" message="Main subflow ended"/>
+	</sub-flow>
+</mule>

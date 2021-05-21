@@ -7,7 +7,6 @@
 	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
 
 	<flow name="delete:\delete-employee\(empID):emp-api-config">
-		<logger level="INFO" doc:name="Logger" doc:id="db4b239f-41f9-404b-88f4-a622759038d8" message='#["Employee delete flow started"]'/>
 		<ee:transform
 			xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
 			xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
@@ -22,5 +21,7 @@ output application/json
 			</ee:message>
 		</ee:transform>
 	</flow>
+
+
 
 </mule>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="dataweave-flaten-pluck-exampleFlow" doc:id="e31466e6-c23b-4290-b4d1-629e41f96d87" >
+		<ee:transform doc:name="Transform Message" doc:id="09caaf0f-bdb2-44d4-a4b4-e137dbeeecd4" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+
+var employee = {
+	"empID": 100,
+	"empName": "Rishabh",
+	"empStatus": "A"
+}
+
+var empList = [{
+	"empID": 101,
+	"empName": "Zyan",
+	"empStatus": "A"
+},
+{
+	"empID": 102,
+	"empName": "Mallik",
+	"empStatus": "I"
+},
+[{
+	"empID": 103,
+	"empName": "Dua",
+	"empStatus": "I"
+},
+{
+	"empID": 104,
+	"empName": "Lipa",
+	"empStatus": "A"
+	
+}]]
+---
+
+{
+	"keysOfEmployees": employee pluck $$,
+	"valuesOfEmployees": employee pluck $
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="dataweave-flatten-exampleFlow1" doc:id="bc158c64-8858-4fa1-95a3-618624069e5d" >
+		<ee:transform doc:name="Transform Message" doc:id="0b756ead-960e-4a30-bc92-0ab8d901505f" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+
+var employee = {
+	"empID": 100,
+	"empName": "Rishabh",
+	"empStatus": "A"
+}
+
+var empList = [{
+	"empID": 101,
+	"empName": "Zyan",
+	"empStatus": "A"
+},
+{
+	"empID": 102,
+	"empName": "Mallik",
+	"empStatus": "I"
+},
+[{
+	"empID": 103,
+	"empName": "Dua",
+	"empStatus": "I"
+},
+{
+	"empID": 104,
+	"empName": "Lipa",
+	"empStatus": "A"
+	
+}]]
+---
+
+flatten(empList)]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>

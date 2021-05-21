@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="dataweave-by-functions-exampleFlow" doc:id="6acf7316-da6e-4a2a-88a2-cf148cf3cd71" >
+		<ee:transform doc:name="Transform Message" doc:id="548d54c5-bced-417a-9547-cf4f239465b0" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+
+
+var empList = [{
+	"empID": 100,
+	"empName": "Zyan",
+	"empStatus": "A"
+},
+{
+	"empID": 104,
+	"empName": "Mallik",
+	"empStatus": "I"
+},
+{
+	"empID": 103,
+	"empName": "Dua",
+	"empStatus": "I"
+},
+{
+	"empID": 102,
+	"empName": "Lipa",
+	"empStatus": "A"
+}]
+---
+{
+	"Example distintOf": empList distinctBy $.empID map (emp, indexOfEmp) -> {
+		"empID": emp.empID,
+		"empName": emp.empName,
+		"empStatus": emp.empStatus
+	},
+	
+	"Example orderBy": empList orderBy $.empID map (emp, indexOfEmp) -> {
+		"empID": emp.empID,
+		"empName": emp.empName
+	},
+	
+	"Example Join By": {
+		"hypernate": ["a", "b", "c", "d"] joinBy  "-"
+	}
+	
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>

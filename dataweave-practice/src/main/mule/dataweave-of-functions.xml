@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="dataweave-of-functionsFlow" doc:id="87dcd0c6-b25e-46a3-8ead-44efb05be77c" >
+		<ee:transform doc:name="Transform Message" doc:id="82f00e9e-3fa3-410e-98e1-11e0834e07a5" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+
+var empName="Rishabh"
+var empSkills=["Leadership", "Development"]
+var employee = {
+	"empID": 1,
+	"empName": "Pranav",
+	"empStatus": "A"
+}
+
+var employeeList = [{
+	"empID": 2,
+	"empName": "Mark",
+	"empStatus": "A"
+},
+{
+	"empID": 3,
+	"empName": "Watney",
+	"empStatus": "A"
+},
+{
+	"empID": 4,
+	"empName": "Mars",
+	"empStatus": "A"
+}]
+---
+{
+	"sizeOf empName": sizeOf(empName),
+	"sizeof empSkills": sizeOf(empSkills),
+	"sizeof employee": sizeOf(employee),
+	"sizeof employeeList": sizeOf(employeeList),
+	"nameOf": namesOf(employee),
+	"entriesOf": entriesOf(employee),
+	"keysOf": keysOf(employee),
+	"valueOf": valuesOf(employee)
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>
